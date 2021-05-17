@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Graffiti Book of KYoung">
+    <title>VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기. - Graffiti Book of KYoung</title>
+    <meta name="author" content="KYoung">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"KYoung","sameAs":[],"image":"KYoung4.jpg"},"articleBody":"토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.\n\n먼저 Spring boot Multi Module 환경을 Maven으로 구성해보고 기록을 하지 않으면 다음번엔 높은 확률로 까먹을게 뻔하니 이제 정리하고 기록을 하겠다.\n사전 개발환경 Java, Maven, vscode, vscode의 플러그인(Java Extension Pack, Spring Boot Extension Pack)등이 설치되어야 한다.\n\n\nSpring Initializr 프로젝트 생성Spring boot 프로젝트 생성하기 전에 Parent 폴더를 생성한다. tp-kyoung 부모 프로젝트로 사용할 tp-kyoung 폴더 안에 Spring boot Project를 두 개 생성한다.\n단축키 ctrl + shift + p  또는 F1 으로 Command Palette 창을 열고 Spring Initializr를 입력 하면  Spring Initializr: Create Maven   Project... 자동완성 기능으로 나오는 메이븐 프로젝트 생성을 선택해서 tp-api, tp-core 두개의 module 프로젝트를 생성하고 tp-kyoung 부모 폴더에 pom.xml 생성한다\n\npom.xml 설정tp-api나 tp-core프로젝트의 pom.xml내용을 Parent pom.xml파일에 통째로 복사한 다음 아래 첫번째 탭 내용과 같이 수정한다.\ntp-api, tp-core프로젝트의 pom.xml 파일들도 아래 두번째 탭 내용과 같이 수정한다.\npom.xmlxmlxml12345678910111213141516171819202122232425262728293031323334&lt;!-- parent pom.xml --&gt;&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\"&gt;\t&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;\t&lt;parent&gt;\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;\t\t&lt;version&gt;2.3.3.RELEASE&lt;/version&gt;\t\t&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;\t&lt;/parent&gt;\t&lt;groupId&gt;io.kyoung.toy&lt;/groupId&gt;\t&lt;!-- artifactId 수정 --&gt;\t&lt;artifactId&gt;tp-kyoung&lt;/artifactId&gt;\t&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;\t&lt;!-- name 수정 --&gt;\t&lt;name&gt;tp-kyoung&lt;/name&gt;\t&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;\t&lt;!-- packaging 추가 --&gt;\t&lt;packaging&gt;pom&lt;/packaging&gt;\t&lt;properties&gt;\t\t&lt;java.version&gt;14&lt;/java.version&gt;\t&lt;/properties&gt;\t&lt;!-- modules 추가 --&gt;\t&lt;modules&gt;\t\t&lt;module&gt;tp-core&lt;/module&gt;\t\t&lt;module&gt;tp-api&lt;/module&gt;\t&lt;/modules&gt;&lt;/project&gt;1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&lt;!-- module pom.xml --&gt;&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\"&gt;\t&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;\t&lt;!-- parent 수정 --&gt;\t&lt;parent&gt;\t\t&lt;groupId&gt;io.kyoung.toy&lt;/groupId&gt;\t\t&lt;artifactId&gt;tp-kyoung&lt;/artifactId&gt;\t\t&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;\t&lt;/parent&gt;\t&lt;!-- groupId 삭제 --&gt;\t&lt;artifactId&gt;tp-api&lt;/artifactId&gt;\t&lt;!-- version 수정 --&gt;\t&lt;version&gt;${parent.version}&lt;/version&gt;\t&lt;name&gt;tp-api&lt;/name&gt;\t&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;\t&lt;properties&gt;\t\t&lt;java.version&gt;14&lt;/java.version&gt;\t&lt;/properties&gt;\t&lt;dependencies&gt;\t\t&lt;dependency&gt;\t\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t\t&lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;\t\t&lt;/dependency&gt;\t\t&lt;dependency&gt;\t\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t\t&lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;\t\t\t&lt;scope&gt;runtime&lt;/scope&gt;\t\t\t&lt;optional&gt;true&lt;/optional&gt;\t\t&lt;/dependency&gt;\t\t&lt;dependency&gt;\t\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t\t&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;\t\t\t&lt;scope&gt;test&lt;/scope&gt;\t\t\t&lt;exclusions&gt;\t\t\t\t&lt;exclusion&gt;\t\t\t\t\t&lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;\t\t\t\t\t&lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;\t\t\t\t&lt;/exclusion&gt;\t\t\t&lt;/exclusions&gt;\t\t&lt;/dependency&gt;\t&lt;/dependencies&gt;\t&lt;build&gt;\t\t&lt;plugins&gt;\t\t\t&lt;plugin&gt;\t\t\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t\t\t&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;\t\t\t&lt;/plugin&gt;\t\t&lt;/plugins&gt;\t&lt;/build&gt;&lt;/project&gt;\n\n중간 확인을 위해 Maven clean install 실행.\ntp-core 프로젝트 설정tp-core 프로젝트에서 TpCoreApplication.java TpCoreApplicationTests.java 파일 삭제. (core 프로젝트에서는 Run 기능을 사용하지 않기 때문) tp-core pom.xml 파일에서 아래 부분 삭제.\n12345678&lt;build&gt;\t&lt;plugins&gt;\t\t&lt;plugin&gt;\t\t\t&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;\t\t\t&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;\t\t&lt;/plugin&gt;\t&lt;/plugins&gt;&lt;/build&gt;\n\n테스트할 간단한 클래스 작성 \n1234567package  io.kyoung.toy.tpcore;public  class  CoreModuleTest &#123;\tpublic  static  void  coreModuleTest() &#123;\t\tSystem.out.println(\"Hello tp-core!\");\t&#125;&#125;\n\nParent 프로젝트 pom.xml에 tp-core 디펜던시 추가123456789&lt;dependencyManagement&gt;\t&lt;dependencies&gt;\t\t&lt;dependency&gt;\t\t\t&lt;groupId&gt;io.kyoung.toy&lt;/groupId&gt;\t\t\t&lt;artifactId&gt;tp-core&lt;/artifactId&gt;\t\t\t&lt;version&gt;$&#123;project.version&#125;&lt;/version&gt;\t\t&lt;/dependency&gt;\t&lt;/dependencies&gt;&lt;/dependencyManagement&gt;\ntp-api 프로젝트 pom.xml에 tp-core 디펜던시 추가1234&lt;dependency&gt;\t&lt;groupId&gt;io.kyoung.toy&lt;/groupId&gt;\t&lt;artifactId&gt;tp-core&lt;/artifactId&gt;&lt;/dependency&gt;\ntp-api 프로젝트에서 tp-core 클래스 사용\n위 스크린샷을 보면 tp-api 프로젝트 main 메소드에서 tp-core 클래스를 사용하는 것을 확인할 수 있다.\n","dateCreated":"2020-08-28T00:00:00+09:00","dateModified":"2020-09-06T00:00:00+09:00","datePublished":"2020-08-28T00:00:00+09:00","description":"토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.","headline":"VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"},"publisher":{"@type":"Organization","name":"KYoung","sameAs":[],"image":"KYoung4.jpg","logo":{"@type":"ImageObject","url":"KYoung4.jpg"}},"url":"https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/","keywords":"VSCode, SpringBoot, Setting"}</script>
+    <meta name="description" content="토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.">
+<meta property="og:url" content="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/index.html">
+<meta property="og:site_name" content="Graffiti Book of KYoung">
+<meta property="og:description" content="토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/E4usNHx.png">
+<meta property="og:image" content="https://i.imgur.com/GS3txWp.png">
+<meta property="article:published_time" content="2020-08-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-09-05T15:00:00.000Z">
+<meta property="article:author" content="KYoung">
+<meta property="article:tag" content="VSCode">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Setting">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/E4usNHx.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://kyoung-k.github.io/assets/images/KYoung4.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-mn7tq6td6vqxkerntaoeazmyb51q7gkutpapsnt4pq3chjc0j6n0pbazus2d.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Graffiti Book of KYoung
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">KYoung</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Why so serious?</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-08-28T00:00:00+09:00">
+	
+		    2020-08-28
+    	
+    </time>
+    
+    / <time datetime="2020-09-06T00:00:00+09:00">
+        
+		    updated 2020-09-06
+    	
+    </time>
+    
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/SpringBoot/">SpringBoot</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p>
+<a id="more"></a>
+<p>먼저 Spring boot Multi Module 환경을 Maven으로 구성해보고 기록을 하지 않으면 다음번엔 높은 확률로 까먹을게 뻔하니 이제 정리하고 기록을 하겠다.</p>
+<div class="alert warning"><p>사전 개발환경 Java, Maven, vscode, vscode의 플러그인(Java Extension Pack, Spring Boot Extension Pack)등이 설치되어야 한다.</p>
+</div>
+
+<h2 id="Spring-Initializr-프로젝트-생성"><a href="#Spring-Initializr-프로젝트-생성" class="headerlink" title="Spring Initializr 프로젝트 생성"></a>Spring Initializr 프로젝트 생성</h2><p>Spring boot 프로젝트 생성하기 전에 Parent 폴더를 생성한다. <code>tp-kyoung</code> 부모 프로젝트로 사용할 <code>tp-kyoung</code> 폴더 안에 Spring boot Project를 두 개 생성한다.</p>
+<p>단축키 <code>ctrl</code> + <code>shift</code> + <code>p</code>  또는 <code>F1</code> 으로 Command Palette 창을 열고 Spring Initializr를 입력 하면  <code>Spring Initializr: Create Maven   Project...</code> 자동완성 기능으로 나오는 메이븐 프로젝트 생성을 선택해서 <code>tp-api</code>, <code>tp-core</code> 두개의 module 프로젝트를 생성하고 <code>tp-kyoung</code> 부모 폴더에 <code>pom.xml</code> 생성한다</p>
+<p><img src="https://i.imgur.com/E4usNHx.png" alt="pom.xml까지 생성한 모습"></p>
+<h2 id="pom-xml-설정"><a href="#pom-xml-설정" class="headerlink" title="pom.xml 설정"></a>pom.xml 설정</h2><p><code>tp-api</code>나 <code>tp-core</code>프로젝트의 <code>pom.xml</code>내용을 Parent <code>pom.xml</code>파일에 통째로 복사한 다음 아래 첫번째 탭 내용과 같이 수정한다.</p>
+<p><code>tp-api</code>, <code>tp-core</code>프로젝트의 <code>pom.xml</code> 파일들도 아래 두번째 탭 내용과 같이 수정한다.</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><span>pom.xml</span><ul class="tabs"><li class="tab active">xml</li><li class="tab">xml</li></ul></figcaption><div class="tabs-content"><figure class="highlight xml" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- parent pom.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.kyoung.toy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- artifactId 수정 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tp-kyoung<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- name 수정 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>tp-kyoung<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- packaging 추가 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>14<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- modules 추가 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span>tp-core<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span>tp-api<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure><figure class="highlight xml" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- module pom.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- parent 수정 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.kyoung.toy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tp-kyoung<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- groupId 삭제 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- version 수정 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>${parent.version}<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>tp-api<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>14<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+
+<p>중간 확인을 위해 Maven <code>clean</code> <code>install</code> 실행.</p>
+<h2 id="tp-core-프로젝트-설정"><a href="#tp-core-프로젝트-설정" class="headerlink" title="tp-core 프로젝트 설정"></a>tp-core 프로젝트 설정</h2><p>tp-core 프로젝트에서 <code>TpCoreApplication.java</code> <code>TpCoreApplicationTests.java</code> 파일 삭제. (core 프로젝트에서는 Run 기능을 사용하지 않기 때문) tp-core <code>pom.xml</code> 파일에서 아래 부분 삭제.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>테스트할 간단한 클래스 작성 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span>  io.kyoung.toy.tpcore;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span>  <span class="title">CoreModuleTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">static</span>  <span class="keyword">void</span>  <span class="title">coreModuleTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello tp-core!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Parent-프로젝트-pom-xml에-tp-core-디펜던시-추가"><a href="#Parent-프로젝트-pom-xml에-tp-core-디펜던시-추가" class="headerlink" title="Parent 프로젝트 pom.xml에 tp-core 디펜던시 추가"></a>Parent 프로젝트 pom.xml에 tp-core 디펜던시 추가</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.kyoung.toy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tp-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="tp-api-프로젝트-pom-xml에-tp-core-디펜던시-추가"><a href="#tp-api-프로젝트-pom-xml에-tp-core-디펜던시-추가" class="headerlink" title="tp-api 프로젝트 pom.xml에 tp-core 디펜던시 추가"></a>tp-api 프로젝트 pom.xml에 tp-core 디펜던시 추가</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.kyoung.toy<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tp-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="tp-api-프로젝트에서-tp-core-클래스-사용"><a href="#tp-api-프로젝트에서-tp-core-클래스-사용" class="headerlink" title="tp-api 프로젝트에서 tp-core 클래스 사용"></a>tp-api 프로젝트에서 tp-core 클래스 사용</h2><p><img src="https://i.imgur.com/GS3txWp.png" alt="Imgur"></p>
+<p>위 스크린샷을 보면 <code>tp-api</code> 프로젝트 <code>main</code> 메소드에서 <code>tp-core</code> 클래스를 사용하는 것을 확인할 수 있다.</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Setting/" rel="tag">Setting</a> <a class="tag tag--primary tag--small t-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a> <a class="tag tag--primary tag--small t-link" href="/tags/VSCode/" rel="tag">VSCode</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                    data-tooltip="L-Hotel 프로젝트 복기"
+                    aria-label="PREVIOUS: L-Hotel 프로젝트 복기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/28/book/"
+                    data-tooltip="2020년 읽은 책"
+                    aria-label="NEXT: 2020년 읽은 책"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 KYoung. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                    data-tooltip="L-Hotel 프로젝트 복기"
+                    aria-label="PREVIOUS: L-Hotel 프로젝트 복기"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/28/book/"
+                    data-tooltip="2020년 읽은 책"
+                    aria-label="NEXT: 2020년 읽은 책"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">KYoung</h4>
+        
+            <div id="about-card-bio"><p>Why so serious?</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Seoul
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"
+                            aria-label=": Hexo 블로그 시작 - Markdown 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Markdown 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 14, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"
+                            aria-label=": Hexo 블로그 시작 - Hexo 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Hexo 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 15, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/28/book/"
+                            aria-label=": 2020년 읽은 책"
+                        >
+                            <h3 class="media-heading">2020년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"
+                            aria-label=": VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                        >
+                            <h3 class="media-heading">VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                            aria-label=": L-Hotel 프로젝트 복기"
+                        >
+                            <h3 class="media-heading">L-Hotel 프로젝트 복기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/02/23/template-project-plan/"
+                            aria-label=": 예약시스템 토이 프로젝트 계획"
+                        >
+                            <h3 class="media-heading">예약시스템 토이 프로젝트 계획</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 23, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/03/25/2021-book/"
+                            aria-label=": 2021년 읽은 책"
+                        >
+                            <h3 class="media-heading">2021년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2021년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover5.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-phkescekrwgvedrwrzacemdneybidvnvowanpddaeobhx7lxljr9ey7agkwj.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('XMH7A2OH53', '2917e43d5747b4fdc5c94e44db663df3');
+      var algoliaIndex = algoliaClient.initIndex('blog');
+    </script>
+
+
+    </body>
+</html>

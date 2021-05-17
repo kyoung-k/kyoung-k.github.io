@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Graffiti Book of KYoung">
+    <title>Hexo 블로그 시작 - Hexo 문법 정리 - Graffiti Book of KYoung</title>
+    <meta name="author" content="KYoung">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"KYoung","sameAs":[],"image":"KYoung4.jpg"},"articleBody":"Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다\n\n\nCommandsGenerate12hexo generatehexo g\n\n정적 파일들을 생성합니다.\n\n\n\n옵션\n설명\n\n\n\n-d, --deploy\n생성이 종료된 후 deploy 합니다.\n\n\n-w, --watch\n파일의 변경사항을 감시(watch)합니다.\n\n\nDeploy12hexo deployhexo d\n\n웹 사이트를 deploy 합니다.\n\n\n\n옵션\n설명\n\n\n\n-g, --generate\nDeploy 하기 전에 generate를 수행합니다.\n\n\nClean12hexo cleanhexo c\n\n캐시 파일 (db.json) 및 생성된 파일들 (public) 을 삭제합니다.\nBasic UsageWriting1hexo new [layout] &lt;title&gt;\npost 는 기본 layout입니다. 하지만 _config.yml 파일의 default_layout 설정을 변경하여 당신이 만든 것으로 변경할 수 있습니다.\n\n\n\n레이아웃\n경로\n\n\n\npost\nsource/_posts\n\n\npage\nsource\n\n\ndraft\nsource/_drafts\n\n\nFront-matterYAML\n12title: Hello World  date: 2013&#x2F;7&#x2F;13 20:46:25\n\nJSON\n12&quot;title&quot;: &quot;Hello World&quot;,  &quot;date&quot;: &quot;2013&#x2F;7&#x2F;13 20:46:25&quot;\n\n\n\n\n설정\n설명\n기본 값\n\n\n\nlayout\n레이아웃\n\n\n\ntitle\n타이틀\nFilename (posts only)\n\n\ndate\n발행일\n파일이 생성된 날짜\n\n\nupdated\n갱신일\n파일이 업로드된 날짜\n\n\ncomments\n포스트에서 comment 기능을 사용할지 여부\ntrue\n\n\ntags\n태그 (page에서는 사용 불가능)\n\n\n\ncategories\n카테고리 (page에서는 사용 불가능)\n\n\n\npermalink\n포스트의 기본 permalink를 override합니다.\n\n\n\n1234567categories:  - Sports  - Baseball  tags:  - Injury  - Fight  - Shocking\nTag Plugins태그 플러그인은 포스트의 태그와는 다릅니다. Octopress로부터 가져온 것으로 특별한 컨텐츠를 당신의 포스트에 빠르게 추가할 수 있도록 도와주는 유용한 방법입니다.\nBlock Quote인용구를 post, 소스, 제목에 추가하기 위한 완벽한 방법입니다. 옵션으로 인용구의 원작자를 추가할 수도 있습니다.\nAlias:  quote\n123&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;  content  &#123;% endblockquote %&#125;\n\n인자가 없는 일반 인용\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque hendrerit lacus ut purus iaculis feugiat. Sed nec tempor elit, quis aliquam neque. Curabitur sed diam eget dolor fermentum semper at eu lorem.  \n\n\n책 인용하기\nDo not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.  \nDavid LevithanWide Awake\n\n웹 게시물 인용하기\nEvery interaction is both precious and an opportunity to delight.  \nSeth GodinWelcome to Island Marketing\n\nCode Block코드 조각(snippet)을 포스트에 추가할 수 있는 유용한 기능입니다.Alias:  code\n123&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;  code snippet  &#123;% endcodeblock %&#125;\n\n언어 지정하기\n1[rectangle setX: 10 y: 10 width: 20 height: 20];  \n\nCode block에 제목 넣기\nArray.map1array.map(callback[, thisArg])  \n\n제목과 URL 넣기\n_.compactUnderscore.js12_.compact([0, 1, false, 2, &#39;&#39;, 3]);  &#x3D;&gt; [1, 2, 3]  \n\nPull Quotepull 인용을 추가하기 위한 방법은 다음과 같습니다.\n123&#123;% pullquote [class] %&#125;  content  &#123;% endpullquote %&#125;\n\njsFiddlejsFiddle을 포함시킬 수 있습니다.\n1&#123;% jsfiddle shorttag [tabs] [skin] [width] [height] %&#125;\n\nGistGist를 포함시킬 수 있습니다.\n1&#123;% gist gist_id [filename] %&#125;\n\niframeiframe을 포함시킬 수 있습니다.\n1&#123;% iframe url [width] [height] %&#125;\n\nImage이미지의 사이즈를 지정하여 포함시킬 수 있습니다.\n1&#123;% img [class names] /path/to/image [width] [height] '\"title text\" \"alt text\"' %&#125;\n\nLinktarget=&quot;_blank&quot;  속성으로 링크를 포함시킬 수 있습니다.\n1&#123;% link text url [external] [title] %&#125;\n\nInclude Codesource/downloads/code  폴더에 있는 코드를 포함시킬 수 있습니다.\n1&#123;% include_code [title] [lang:language] path/to/file %&#125;\n\nYouTubeYouTube video를 포함시킬 수 있습니다.\n1&#123;% youtube video_id [type] [cookie] %&#125;\n\ntranquilpeaktranquilpeak theme 관련 내용\nAlertAlert tag is useful to highlight a content like a tips or a warning\n123&#123;% alert [classes] %&#125;content&#123;% endalert %&#125;\n\nPraesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.\n\n\nPraesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.\n\n\nPraesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.\n\n\nPraesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.\n\n\nHighlight TextHighlight text tag is useful to highlight an interesting part in a text\n123&#123;% hl_text [(classes | hexa code | rgb color | rgba color)] %&#125; content&#123;% endhl_text %&#125;\n\nhighlight red dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight green dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight blue dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight purple dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight orange dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight yellow dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight cyan dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight primary dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight success dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight warning dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.highlight danger dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.\n\nTabbed code blockTabbed code blocks are useful to group multiple code blocks related. For example, the source code of a web component (html, css and js). Or compare a source code in different languages.\n12345&#123;% tabbed_codeblock [name] [link] %&#125;&lt;!-- tab [lang] --&gt;\tsource code&lt;!-- endtab --&gt;&#123;% endtabbed_codeblock %&#125;\nexamplejscss123function testFunc(a, b) {      console.log('hellow');}1234567div.text,#content,  li[lang=ru] {      font: Tahoma, Chunkfive, sans-serif;      background: url('hatch.png') /* wtf? */;  color: #F0F0F0 !important;      width: 100%;  }\n\nWide imageWide image tag is useful to display wide images in full width. It takes entire window width\n1&#123;% wide_image /path/to/image [title text] %&#125;\nA beautiful sunrise\n\ntranquilpeakhexo-theme-tranquilpeak","dateCreated":"2020-07-15T00:00:00+09:00","dateModified":"2020-09-03T00:00:00+09:00","datePublished":"2020-07-15T00:00:00+09:00","description":"Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다","headline":"Hexo 블로그 시작 - Hexo 문법 정리","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"},"publisher":{"@type":"Organization","name":"KYoung","sameAs":[],"image":"KYoung4.jpg","logo":{"@type":"ImageObject","url":"KYoung4.jpg"}},"url":"https://kyoung-k.github.io/2020/07/15/hexo-blog-02/","keywords":"hexo"}</script>
+    <meta name="description" content="Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Hexo 블로그 시작 - Hexo 문법 정리">
+<meta property="og:url" content="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/index.html">
+<meta property="og:site_name" content="Graffiti Book of KYoung">
+<meta property="og:description" content="Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-1.jpg">
+<meta property="article:published_time" content="2020-07-14T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-09-02T15:00:00.000Z">
+<meta property="article:author" content="KYoung">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-1.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://kyoung-k.github.io/assets/images/KYoung4.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-mn7tq6td6vqxkerntaoeazmyb51q7gkutpapsnt4pq3chjc0j6n0pbazus2d.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Graffiti Book of KYoung
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">KYoung</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Why so serious?</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Hexo 블로그 시작 - Hexo 문법 정리
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-07-15T00:00:00+09:00">
+	
+		    2020-07-15
+    	
+    </time>
+    
+    / <time datetime="2020-09-03T00:00:00+09:00">
+        
+		    updated 2020-09-03
+    	
+    </time>
+    
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/hexo/">hexo</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p>
+<a id="more"></a>
+<hr>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><h3 id="Generate"><a href="#Generate" class="headerlink" title="Generate"></a>Generate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>정적 파일들을 생성합니다.</p>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-d</code>, <code>--deploy</code></td>
+<td>생성이 종료된 후 deploy 합니다.</td>
+</tr>
+<tr>
+<td><code>-w</code>, <code>--watch</code></td>
+<td>파일의 변경사항을 감시(watch)합니다.</td>
+</tr>
+</tbody></table>
+<h3 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>웹 사이트를 deploy 합니다.</p>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-g</code>, <code>--generate</code></td>
+<td>Deploy 하기 전에 generate를 수행합니다.</td>
+</tr>
+</tbody></table>
+<h3 id="Clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo c</span><br></pre></td></tr></table></figure>
+
+<p>캐시 파일 (<code>db.json</code>) 및 생성된 파일들 (<code>public</code>) 을 삭제합니다.</p>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><h3 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p><code>post</code> 는 기본 <code>layout</code>입니다. 하지만 <code>_config.yml</code> 파일의 <code>default_layout</code> 설정을 변경하여 당신이 만든 것으로 변경할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>레이아웃</th>
+<th>경로</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>post</code></td>
+<td><code>source/_posts</code></td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>source</code></td>
+</tr>
+<tr>
+<td><code>draft</code></td>
+<td><code>source/_drafts</code></td>
+</tr>
+</tbody></table>
+<h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p><strong>YAML</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title: Hello World  </span><br><span class="line">date: 2013&#x2F;7&#x2F;13 20:46:25</span><br></pre></td></tr></table></figure>
+
+<p><strong>JSON</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;title&quot;: &quot;Hello World&quot;,  </span><br><span class="line">&quot;date&quot;: &quot;2013&#x2F;7&#x2F;13 20:46:25&quot;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>설정</th>
+<th>설명</th>
+<th>기본 값</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>layout</code></td>
+<td>레이아웃</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>타이틀</td>
+<td>Filename (posts only)</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>발행일</td>
+<td>파일이 생성된 날짜</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td>갱신일</td>
+<td>파일이 업로드된 날짜</td>
+</tr>
+<tr>
+<td><code>comments</code></td>
+<td>포스트에서 comment 기능을 사용할지 여부</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>태그 (page에서는 사용 불가능)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>카테고리 (page에서는 사용 불가능)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>permalink</code></td>
+<td>포스트의 기본 permalink를 override합니다.</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">categories:  </span><br><span class="line"><span class="bullet">- </span>Sports  </span><br><span class="line"><span class="bullet">- </span>Baseball  </span><br><span class="line">tags:  </span><br><span class="line"><span class="bullet">- </span>Injury  </span><br><span class="line"><span class="bullet">- </span>Fight  </span><br><span class="line"><span class="bullet">- </span>Shocking</span><br></pre></td></tr></table></figure>
+<h2 id="Tag-Plugins"><a href="#Tag-Plugins" class="headerlink" title="Tag Plugins"></a>Tag Plugins</h2><p>태그 플러그인은 포스트의 태그와는 다릅니다. Octopress로부터 가져온 것으로 특별한 컨텐츠를 당신의 포스트에 빠르게 추가할 수 있도록 도와주는 유용한 방법입니다.</p>
+<h3 id="Block-Quote"><a href="#Block-Quote" class="headerlink" title="Block Quote"></a>Block Quote</h3><p>인용구를 post, 소스, 제목에 추가하기 위한 완벽한 방법입니다. 옵션으로 인용구의 원작자를 추가할 수도 있습니다.</p>
+<p><strong>Alias:</strong>  quote</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote [author[, source]] [link] [source<span class="emphasis">_link_</span>title] %&#125;  </span><br><span class="line">content  </span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>인자가 없는 일반 인용</strong></p>
+<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque hendrerit lacus ut purus iaculis feugiat. Sed nec tempor elit, quis aliquam neque. Curabitur sed diam eget dolor fermentum semper at eu lorem.  </p>
+</blockquote>
+
+<p><strong>책 인용하기</strong></p>
+<blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.  </p>
+<footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote>
+
+<p><strong>웹 게시물 인용하기</strong></p>
+<blockquote><p>Every interaction is both precious and an opportunity to delight.  </p>
+<footer><strong>Seth Godin</strong><cite><a href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html" target="_blank" rel="noopener">Welcome to Island Marketing</a></cite></footer></blockquote>
+
+<h3 id="Code-Block"><a href="#Code-Block" class="headerlink" title="Code Block"></a>Code Block</h3><p>코드 조각(snippet)을 포스트에 추가할 수 있는 유용한 기능입니다.<br><strong>Alias:</strong>  code</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;  </span><br><span class="line">code snippet  </span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>언어 지정하기</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rectangle setX: <span class="number">10</span> y: <span class="number">10</span> width: <span class="number">20</span> height: <span class="number">20</span>];  </span><br></pre></td></tr></table></figure>
+
+<p><strong>Code block에 제목 넣기</strong></p>
+<figure class="highlight plain"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.map(callback[, thisArg])  </span><br></pre></td></tr></table></figure>
+
+<p><strong>제목과 URL 넣기</strong></p>
+<figure class="highlight plain"><figcaption><span>_.compact</span><a href="http://underscorejs.org/#compact" target="_blank" rel="noopener">Underscore.js</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.compact([0, 1, false, 2, &#39;&#39;, 3]);  </span><br><span class="line">&#x3D;&gt; [1, 2, 3]  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Pull-Quote"><a href="#Pull-Quote" class="headerlink" title="Pull Quote"></a>Pull Quote</h3><p>pull 인용을 추가하기 위한 방법은 다음과 같습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% pullquote [class] %&#125;  </span><br><span class="line">content  </span><br><span class="line">&#123;% endpullquote %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="jsFiddle"><a href="#jsFiddle" class="headerlink" title="jsFiddle"></a>jsFiddle</h3><p>jsFiddle을 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% jsfiddle shorttag [tabs] [skin] [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Gist"><a href="#Gist" class="headerlink" title="Gist"></a>Gist</h3><p>Gist를 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% gist gist_id [filename] %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h3><p>iframe을 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% iframe url [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h3><p>이미지의 사이즈를 지정하여 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img [class names] /path/to/image [width] [height] '"title text" "alt text"' %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h3><p><code>target=&quot;_blank&quot;</code>  속성으로 링크를 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% link text url [external] [title] %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h3><p><code>source/downloads/code</code>  폴더에 있는 코드를 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code [title] [lang:language] path/to/file %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="YouTube"><a href="#YouTube" class="headerlink" title="YouTube"></a>YouTube</h3><p>YouTube video를 포함시킬 수 있습니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% youtube video_id [type] [cookie] %&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="tranquilpeak"><a href="#tranquilpeak" class="headerlink" title="tranquilpeak"></a>tranquilpeak</h2><p>tranquilpeak theme 관련 내용</p>
+<h3 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h3><p>Alert tag is useful to highlight a content like a tips or a warning</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% alert [classes] %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endalert %&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="alert info"><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p>
+</div>
+
+<div class="alert success"><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p>
+</div>
+
+<div class="alert warning no-icon"><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p>
+</div>
+
+<div class="alert danger no-icon"><p>Praesent diam elit, interdum ut pulvinar placerat, imperdiet at magna.</p>
+</div>
+
+<h3 id="Highlight-Text"><a href="#Highlight-Text" class="headerlink" title="Highlight Text"></a>Highlight Text</h3><p>Highlight text tag is useful to highlight an interesting part in a text</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% hl_text [(classes | hexa code | rgb color | rgba color)] %&#125; </span><br><span class="line">content</span><br><span class="line">&#123;% endhl_text %&#125;</span><br></pre></td></tr></table></figure>
+
+<span class="highlight-text red">highlight red</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text green">highlight green</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text blue">highlight blue</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text purple">highlight purple</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text orange">highlight orange</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text yellow">highlight yellow</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text cyan">highlight cyan</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text primary">highlight primary</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text success">highlight success</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text warning">highlight warning</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.<span class="highlight-text danger">highlight danger</span> dignissim ultrices libero. Sed imperdiet urna et quam ultrices tincidunt nec ac magna. Etiam vel pharetra elit.
+
+<h3 id="Tabbed-code-block"><a href="#Tabbed-code-block" class="headerlink" title="Tabbed code block"></a>Tabbed code block</h3><p>Tabbed code blocks are useful to group multiple code blocks related. For example, the source code of a web component (html, css and js). Or compare a source code in different languages.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabbed_codeblock [name] [link] %&#125;</span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- tab [lang] --&gt;</span></span></span><br><span class="line"><span class="code">	source code</span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- endtab --&gt;</span></span></span><br><span class="line">&#123;% endtabbed_codeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="codeblock codeblock--tabbed"><figcaption><span>example</span><ul class="tabs"><li class="tab active">js</li><li class="tab">css</li></ul></figcaption><div class="tabs-content"><figure class="highlight js" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testFunc</span>(<span class="params">a, b</span>) </span>{  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hellow'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><figure class="highlight css" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.text</span>,</span><br><span class="line"><span class="selector-id">#content</span>,  </span><br><span class="line"><span class="selector-tag">li</span><span class="selector-attr">[lang=ru]</span> {  </span><br><span class="line">    <span class="attribute">font</span>: Tahoma, Chunkfive, sans-serif;  </span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'hatch.png'</span>) <span class="comment">/* wtf? */</span>;  <span class="attribute">color</span>: <span class="number">#F0F0F0</span> <span class="meta">!important</span>;  </span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+
+<h3 id="Wide-image"><a href="#Wide-image" class="headerlink" title="Wide image"></a>Wide image</h3><p>Wide image tag is useful to display wide images in full width. It takes entire window width</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% wide_image /path/to/image [title text] %&#125;</span><br></pre></td></tr></table></figure>
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-1.jpg" alt="A beautiful sunrise"><span class="caption">A beautiful sunrise</span></div><div class="main-content-wrap">
+
+<blockquote><footer><strong>tranquilpeak</strong><cite><a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="noopener">hexo-theme-tranquilpeak</a></cite></footer></blockquote>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/hexo/" rel="tag">hexo</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/28/book/"
+                    data-tooltip="2020년 읽은 책"
+                    aria-label="PREVIOUS: 2020년 읽은 책"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/14/hexo-blog-01/"
+                    data-tooltip="Hexo 블로그 시작 - Markdown 문법 정리"
+                    aria-label="NEXT: Hexo 블로그 시작 - Markdown 문법 정리"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 KYoung. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/28/book/"
+                    data-tooltip="2020년 읽은 책"
+                    aria-label="PREVIOUS: 2020년 읽은 책"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/14/hexo-blog-01/"
+                    data-tooltip="Hexo 블로그 시작 - Markdown 문법 정리"
+                    aria-label="NEXT: Hexo 블로그 시작 - Markdown 문법 정리"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">KYoung</h4>
+        
+            <div id="about-card-bio"><p>Why so serious?</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Seoul
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"
+                            aria-label=": Hexo 블로그 시작 - Markdown 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Markdown 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 14, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"
+                            aria-label=": Hexo 블로그 시작 - Hexo 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Hexo 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 15, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/28/book/"
+                            aria-label=": 2020년 읽은 책"
+                        >
+                            <h3 class="media-heading">2020년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"
+                            aria-label=": VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                        >
+                            <h3 class="media-heading">VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                            aria-label=": L-Hotel 프로젝트 복기"
+                        >
+                            <h3 class="media-heading">L-Hotel 프로젝트 복기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/02/23/template-project-plan/"
+                            aria-label=": 예약시스템 토이 프로젝트 계획"
+                        >
+                            <h3 class="media-heading">예약시스템 토이 프로젝트 계획</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 23, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/03/25/2021-book/"
+                            aria-label=": 2021년 읽은 책"
+                        >
+                            <h3 class="media-heading">2021년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2021년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover5.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-phkescekrwgvedrwrzacemdneybidvnvowanpddaeobhx7lxljr9ey7agkwj.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('XMH7A2OH53', '2917e43d5747b4fdc5c94e44db663df3');
+      var algoliaIndex = algoliaClient.initIndex('blog');
+    </script>
+
+
+    </body>
+</html>

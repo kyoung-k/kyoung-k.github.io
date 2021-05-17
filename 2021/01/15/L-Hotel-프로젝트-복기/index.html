@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Graffiti Book of KYoung">
+    <title>L-Hotel 프로젝트 복기 - Graffiti Book of KYoung</title>
+    <meta name="author" content="KYoung">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"KYoung","sameAs":[],"image":"KYoung4.jpg"},"articleBody":"2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.\n\n\n이 글은 모 기업이나 프로젝트를 같이 진행한 인원을 비난하는 글이 아닌 이번에 경험한 일을 바탕으로 다음엔 더 나은 업무를 진행하기 위한 목적으로 작성되었습니다.\n\n\n요구사항 - 개선요건의 프로젝트는 요건을 확실하게 짚자이번 프로젝트의 목적은 UI, UX 개선이었다. 프로젝트 투입하기 전에 들었던 업무 내용은 단순했다, “그냥 간단한 화면 UI(디자인) 변경만 있을 거야” 정확한 프로젝트의 목적과 요건은 모른 채 프로젝트에 투입이 됐고, 내부에선 모 컨설팅 업체가 UI, UX 컨설팅을 먼저 진행하고 기획, 디자인을 담당했다. 컨설팅을 위한 것이었는지 잘 모르겠지만 프로젝트의 요구사항에 대한 내용이 없어 보였다. 실제로도 관련 문서가 없었고 화면 설계만 보고 개발을 진행했다. 요구사항에 대한 내용을 파악하지 않은 나비효과는 엄청났다 다음엔 반드시 정확한 요구사항을 짚고 넘어가야 한다, 요구사항 관련 문서가 없다면 문제를 제기해야 하고 문제가 되지 않는다면 요구사항에 준하는 문서를 근거로 잡아야 한다. ex) 화면 설계서?, 개발을 할 땐 기준이 필요하고 그 기준은 화면 설계서나 SB지만 그 문서들이 정답은 아니다. 요구사항 관련 문서를 파악하자.\n개발환경 - 처음 경험하는 환경은 지향하자개인적으로 처음 경험하는 개발 환경(언어, 프레임워크)으로 진행하는 프로젝트는 지향한다. 과거 ExtJS로 고생했던 경험 때문인데 이번엔 어도비의 AEM이었다. AEM 관리자의 일부분이 ExtJS로 구현되어있어서 옛 생각에 좀 반가우면서 불안했고 결과는 역시 처음 경험해보는 환경의 프로젝트는 좀 더 보수적으로 지향해야겠다. 기본적인 문법도 모른 채 학습도 없이 기존 소스만 참고해서 업무를 진행하는 건 고객에게도 민폐 나도 고통스럽다.\nHistory - 모든걸 기록하자회의록, 업무일지, 업무 내용 등 구두로 오가는 모든 내용들을 기록하자. 업무 내용을 구두로 전달받았다면 정리해서 메일로 보내든 메신저로 보내든 재확인하고 그걸 이력으로 남기고 기록하자. 최소한의 개인적인 방어 행동이고 훗날 일어날지도 모를 상황에서 근거가 될 수 있다. 개발자는 최후방 전선이고 우리도 모르는 사이 그리고 어쩌면 상대도 모르는 사이에 발생한 또는 준비된 융단폭격의 제일 큰 희생양이 될 수 있다.\n일정관리 - 어필 하자이번 프로젝트에서 기획 전체 일정이 2달 정도 딜레이 됐다. 다시 생각해보니 말도 안 되는 상황이다. 나와 우리(개발팀)는 조금 안일하게 대처한 거 같다. 좀 더 강하게 어필했어야 했다고 생각된다 단순하게 늘 그래 왔듯이 ‘어쩔 수 없이 야근으로 때우겠구나’라고 생각한 거 같다. 그리고 야근으로 때워서 개발 일정은 맞췄다. 경주마처럼 되어 앞만 보고 달려 개발 일정을 마무리하니 이후의 요건 변경, 수정사항, 추가사항을 유연하게 대처하기 힘들었다. 내 코드는 유연하게 대처하기 쉽도록 작성되지 않았고 고통만 늘어갔다.\n데이터 - 충분한 데이터를 요구하자처음부터 새롭게 구축하는 프로젝트가 아니라면 기존 레거시 시스템의 개발환경에 대한 데이터는 충분히 확보한 채 개발하자. 이번 프로젝트도 역시 테스트 데이터가 충분하지 않았다, 적어도 단위 테스트 시작할 때의 데이터만 미리 확보되었어도 테스트 기간의 고통은 조금 줄어들었지 싶다.\n반응형 화면가끔 반응형 화면인데 WEB, Mobile WEB 화면이 나뉘어서 구현이되는 경우가 있다. 이 경우엔 이벤트 처리를 함께 처리하겠다는 생각은 접자. 나뉘어져서 구현된 이유는 분명히 있을거고 그 나뉜 부분의 이벤트 처리를 한번에 하는건 오히려 더 복잡하게만 만들더라, 나뉘어진 화면의 이벤트 처리는 개별로 개발하자.\n화면설계서 - 정답은 아니지만 기준으로 만들자처음의 요구사항과 관련된 내용인데 화면 설계서가 정답은 아니다. 프로젝트 막바지 우리를 힘들게 했던 이유 중 한 가지가 기존에 적용된 기능이 빠졌다는 내용이다. 개선 프로젝트 특성상 화면 설계서에서 누락될 수도 있다. 누락된 기능 등은 개발자가 분석 중에 빠진 내용을 알려줄 수 있고, 확인할 수도 있다. 개발 일정이 그나마 넉넉하다면.. 개발 일정도 촉박한데 AS-IS 소스는 분석하기 힘들게 구현돼있고(Javascript innerHTML), 주석도 없고 하면 난감한 상황이 발생한다. 개발을 진행하는 문서를 기준으로 만들고 확인을 받자. 기획자에게 현업한테 컨펌을 받든 운영팀한테 확인을 받든 개발자가 개발을 진행할 때 참고하는 문서를 기준으로 만들어야 한다. 그리고 그 기준의 문서가 변경되거나 추가되는 요구사항이 발생한다면 발생한 요구사항에 대한 일정을 확보하자.\nSI 개발 - 이바닥 참 힘들다이번 프로젝트의 History를 이야기해보면 현업에서 원래 담당하던 부서가 있었지만 새로운 개혁? 혁신? 을 위해 원래 담당하던 부서가 아닌 다른 부서가 프로젝트를 진행했다. 진행하던 부서가 끝까지 진행하면 문제가 없었을 건데 개발 일정이 끝날 때쯤 그 두 개의 부서가 합쳐지게 됐고, 원래 담당하던 사람들이 프로젝트에 배정되면서 요구사항이 뒤틀렸다. 따지고 보면 개발자들이 이런 상황을 예방하거나 예측하고 일을 할 순 없다. 오랜만에 일을 미친 듯이 하면서 현타가 쌔게 찾아왔었는데 모르겠다. 제대로 큰 문제없이 재미있게 프로젝트를 진행한 게 오래돼서 그런지 가끔은 SI 개발일을 하는 게 참 힘들다. 개발자라면 SI 개발을 하지 말라는 말을 인터넷에서 쉽게 볼 수 있는데 그 말이 요즘은 많이 이해된다.\n","dateCreated":"2021-01-15T00:00:00+09:00","dateModified":"2021-01-15T00:00:00+09:00","datePublished":"2021-01-15T00:00:00+09:00","description":"2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.","headline":"L-Hotel 프로젝트 복기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"KYoung","sameAs":[],"image":"KYoung4.jpg","logo":{"@type":"ImageObject","url":"KYoung4.jpg"}},"url":"https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/","keywords":"복기"}</script>
+    <meta name="description" content="2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="L-Hotel 프로젝트 복기">
+<meta property="og:url" content="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/index.html">
+<meta property="og:site_name" content="Graffiti Book of KYoung">
+<meta property="og:description" content="2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-14T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-14T15:00:00.000Z">
+<meta property="article:author" content="KYoung">
+<meta property="article:tag" content="복기">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://kyoung-k.github.io/assets/images/KYoung4.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-mn7tq6td6vqxkerntaoeazmyb51q7gkutpapsnt4pq3chjc0j6n0pbazus2d.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Graffiti Book of KYoung
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">KYoung</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Why so serious?</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            L-Hotel 프로젝트 복기
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-01-15T00:00:00+09:00">
+	
+		    2021-01-15
+    	
+    </time>
+    
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/%EC%9E%A1%EB%8B%B4/">잡담</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p>
+<a id="more"></a>
+
+<div class="alert warning"><p>이 글은 모 기업이나 프로젝트를 같이 진행한 인원을 비난하는 글이 아닌 이번에 경험한 일을 바탕으로 다음엔 더 나은 업무를 진행하기 위한 목적으로 작성되었습니다.</p>
+</div>
+
+<h2 id="요구사항-개선요건의-프로젝트는-요건을-확실하게-짚자"><a href="#요구사항-개선요건의-프로젝트는-요건을-확실하게-짚자" class="headerlink" title="요구사항 - 개선요건의 프로젝트는 요건을 확실하게 짚자"></a>요구사항 - 개선요건의 프로젝트는 요건을 확실하게 짚자</h2><p>이번 프로젝트의 목적은 UI, UX 개선이었다. 프로젝트 투입하기 전에 들었던 업무 내용은 단순했다, “그냥 간단한 화면 UI(디자인) 변경만 있을 거야” 정확한 프로젝트의 목적과 요건은 모른 채 프로젝트에 투입이 됐고, 내부에선 모 컨설팅 업체가 UI, UX 컨설팅을 먼저 진행하고 기획, 디자인을 담당했다. 컨설팅을 위한 것이었는지 잘 모르겠지만 프로젝트의 요구사항에 대한 내용이 없어 보였다. 실제로도 관련 문서가 없었고 화면 설계만 보고 개발을 진행했다. 요구사항에 대한 내용을 파악하지 않은 나비효과는 엄청났다 다음엔 반드시 정확한 요구사항을 짚고 넘어가야 한다, 요구사항 관련 문서가 없다면 문제를 제기해야 하고 문제가 되지 않는다면 요구사항에 준하는 문서를 근거로 잡아야 한다. ex) 화면 설계서?, 개발을 할 땐 기준이 필요하고 그 기준은 화면 설계서나 SB지만 그 문서들이 정답은 아니다. 요구사항 관련 문서를 파악하자.</p>
+<h2 id="개발환경-처음-경험하는-환경은-지향하자"><a href="#개발환경-처음-경험하는-환경은-지향하자" class="headerlink" title="개발환경 - 처음 경험하는 환경은 지향하자"></a>개발환경 - 처음 경험하는 환경은 지향하자</h2><p>개인적으로 처음 경험하는 개발 환경(언어, 프레임워크)으로 진행하는 프로젝트는 지향한다. 과거 ExtJS로 고생했던 경험 때문인데 이번엔 어도비의 AEM이었다. AEM 관리자의 일부분이 ExtJS로 구현되어있어서 옛 생각에 좀 반가우면서 불안했고 결과는 역시 처음 경험해보는 환경의 프로젝트는 좀 더 보수적으로 지향해야겠다. 기본적인 문법도 모른 채 학습도 없이 기존 소스만 참고해서 업무를 진행하는 건 고객에게도 민폐 나도 고통스럽다.</p>
+<h2 id="History-모든걸-기록하자"><a href="#History-모든걸-기록하자" class="headerlink" title="History - 모든걸 기록하자"></a>History - 모든걸 기록하자</h2><p>회의록, 업무일지, 업무 내용 등 구두로 오가는 모든 내용들을 기록하자. 업무 내용을 구두로 전달받았다면 정리해서 메일로 보내든 메신저로 보내든 재확인하고 그걸 이력으로 남기고 기록하자. 최소한의 개인적인 방어 행동이고 훗날 일어날지도 모를 상황에서 근거가 될 수 있다. 개발자는 최후방 전선이고 우리도 모르는 사이 그리고 어쩌면 상대도 모르는 사이에 발생한 또는 준비된 융단폭격의 제일 큰 희생양이 될 수 있다.</p>
+<h2 id="일정관리-어필-하자"><a href="#일정관리-어필-하자" class="headerlink" title="일정관리 - 어필 하자"></a>일정관리 - 어필 하자</h2><p>이번 프로젝트에서 기획 전체 일정이 2달 정도 딜레이 됐다. 다시 생각해보니 말도 안 되는 상황이다. 나와 우리(개발팀)는 조금 안일하게 대처한 거 같다. 좀 더 강하게 어필했어야 했다고 생각된다 단순하게 늘 그래 왔듯이 ‘어쩔 수 없이 야근으로 때우겠구나’라고 생각한 거 같다. 그리고 야근으로 때워서 개발 일정은 맞췄다. 경주마처럼 되어 앞만 보고 달려 개발 일정을 마무리하니 이후의 요건 변경, 수정사항, 추가사항을 유연하게 대처하기 힘들었다. 내 코드는 유연하게 대처하기 쉽도록 작성되지 않았고 고통만 늘어갔다.</p>
+<h2 id="데이터-충분한-데이터를-요구하자"><a href="#데이터-충분한-데이터를-요구하자" class="headerlink" title="데이터 - 충분한 데이터를 요구하자"></a>데이터 - 충분한 데이터를 요구하자</h2><p>처음부터 새롭게 구축하는 프로젝트가 아니라면 기존 레거시 시스템의 개발환경에 대한 데이터는 충분히 확보한 채 개발하자. 이번 프로젝트도 역시 테스트 데이터가 충분하지 않았다, 적어도 단위 테스트 시작할 때의 데이터만 미리 확보되었어도 테스트 기간의 고통은 조금 줄어들었지 싶다.</p>
+<h2 id="반응형-화면"><a href="#반응형-화면" class="headerlink" title="반응형 화면"></a>반응형 화면</h2><p>가끔 반응형 화면인데 WEB, Mobile WEB 화면이 나뉘어서 구현이되는 경우가 있다. 이 경우엔 이벤트 처리를 함께 처리하겠다는 생각은 접자. 나뉘어져서 구현된 이유는 분명히 있을거고 그 나뉜 부분의 이벤트 처리를 한번에 하는건 오히려 더 복잡하게만 만들더라, 나뉘어진 화면의 이벤트 처리는 개별로 개발하자.</p>
+<h2 id="화면설계서-정답은-아니지만-기준으로-만들자"><a href="#화면설계서-정답은-아니지만-기준으로-만들자" class="headerlink" title="화면설계서 - 정답은 아니지만 기준으로 만들자"></a>화면설계서 - 정답은 아니지만 기준으로 만들자</h2><p>처음의 요구사항과 관련된 내용인데 화면 설계서가 정답은 아니다. 프로젝트 막바지 우리를 힘들게 했던 이유 중 한 가지가 기존에 적용된 기능이 빠졌다는 내용이다. 개선 프로젝트 특성상 화면 설계서에서 누락될 수도 있다. 누락된 기능 등은 개발자가 분석 중에 빠진 내용을 알려줄 수 있고, 확인할 수도 있다. 개발 일정이 그나마 넉넉하다면.. 개발 일정도 촉박한데 AS-IS 소스는 분석하기 힘들게 구현돼있고(Javascript innerHTML), 주석도 없고 하면 난감한 상황이 발생한다. 개발을 진행하는 문서를 기준으로 만들고 확인을 받자. 기획자에게 현업한테 컨펌을 받든 운영팀한테 확인을 받든 개발자가 개발을 진행할 때 참고하는 문서를 기준으로 만들어야 한다. 그리고 그 기준의 문서가 변경되거나 추가되는 요구사항이 발생한다면 발생한 요구사항에 대한 일정을 확보하자.</p>
+<h2 id="SI-개발-이바닥-참-힘들다"><a href="#SI-개발-이바닥-참-힘들다" class="headerlink" title="SI 개발 - 이바닥 참 힘들다"></a>SI 개발 - 이바닥 참 힘들다</h2><p>이번 프로젝트의 History를 이야기해보면 현업에서 원래 담당하던 부서가 있었지만 새로운 개혁? 혁신? 을 위해 원래 담당하던 부서가 아닌 다른 부서가 프로젝트를 진행했다. 진행하던 부서가 끝까지 진행하면 문제가 없었을 건데 개발 일정이 끝날 때쯤 그 두 개의 부서가 합쳐지게 됐고, 원래 담당하던 사람들이 프로젝트에 배정되면서 요구사항이 뒤틀렸다. 따지고 보면 개발자들이 이런 상황을 예방하거나 예측하고 일을 할 순 없다. 오랜만에 일을 미친 듯이 하면서 현타가 쌔게 찾아왔었는데 모르겠다. 제대로 큰 문제없이 재미있게 프로젝트를 진행한 게 오래돼서 그런지 가끔은 SI 개발일을 하는 게 참 힘들다. 개발자라면 SI 개발을 하지 말라는 말을 인터넷에서 쉽게 볼 수 있는데 그 말이 요즘은 많이 이해된다.</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/%EB%B3%B5%EA%B8%B0/" rel="tag">복기</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/02/23/template-project-plan/"
+                    data-tooltip="예약시스템 토이 프로젝트 계획"
+                    aria-label="PREVIOUS: 예약시스템 토이 프로젝트 계획"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/28/vscode-spring-boot-module/"
+                    data-tooltip="VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                    aria-label="NEXT: VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 KYoung. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/02/23/template-project-plan/"
+                    data-tooltip="예약시스템 토이 프로젝트 계획"
+                    aria-label="PREVIOUS: 예약시스템 토이 프로젝트 계획"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/08/28/vscode-spring-boot-module/"
+                    data-tooltip="VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                    aria-label="NEXT: VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">KYoung</h4>
+        
+            <div id="about-card-bio"><p>Why so serious?</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Seoul
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"
+                            aria-label=": Hexo 블로그 시작 - Markdown 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Markdown 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 14, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"
+                            aria-label=": Hexo 블로그 시작 - Hexo 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Hexo 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 15, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/28/book/"
+                            aria-label=": 2020년 읽은 책"
+                        >
+                            <h3 class="media-heading">2020년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"
+                            aria-label=": VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                        >
+                            <h3 class="media-heading">VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                            aria-label=": L-Hotel 프로젝트 복기"
+                        >
+                            <h3 class="media-heading">L-Hotel 프로젝트 복기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/02/23/template-project-plan/"
+                            aria-label=": 예약시스템 토이 프로젝트 계획"
+                        >
+                            <h3 class="media-heading">예약시스템 토이 프로젝트 계획</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 23, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/03/25/2021-book/"
+                            aria-label=": 2021년 읽은 책"
+                        >
+                            <h3 class="media-heading">2021년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2021년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover5.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-phkescekrwgvedrwrzacemdneybidvnvowanpddaeobhx7lxljr9ey7agkwj.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('XMH7A2OH53', '2917e43d5747b4fdc5c94e44db663df3');
+      var algoliaIndex = algoliaClient.initIndex('blog');
+    </script>
+
+
+    </body>
+</html>

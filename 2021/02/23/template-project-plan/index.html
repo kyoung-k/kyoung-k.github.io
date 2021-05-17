@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Graffiti Book of KYoung">
+    <title>예약시스템 토이 프로젝트 계획 - Graffiti Book of KYoung</title>
+    <meta name="author" content="KYoung">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"KYoung","sameAs":[],"image":"KYoung4.jpg"},"articleBody":"개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.\n\n\nMSA 구축 학습을 위해 어떤 내용을 해볼까 하다 예약 시스템으로 결정했다. 먼저 1차적인 학습 목표는 스프링 클라우드를 이용해서 MSA를 구축해보는 것이고, 후에 이 시스템을 쿠버네티스 환경으로 변환하는 작업을 진행해볼까 한다. 먼저 구축을 완료해보고 해당 시스템을 지속 개선, Template Project를 구성하는 게 목표다.\n1차 기술 요구사항\nSpring Boot 기반 RestAPI 서비스\nSpring Cloud 기반 MSA\nSpring Data JPA 기반 데이터 관리\n\n1차 목표는 심플하게 MSA를 구축하는게 목표고 구축한 시스템을 기반으로 공통 코어 개발 및 공통 기능 개발이다.\n1차 비즈니스 요구사항시스템에 대한 비즈니스 요구사항을 심플하게 정리하자. \n\n다수의 대상의 예약을 관리한다. \n대상은 예약 스케줄을 설정할 수 있다. \n대상은 아이템을 소유하고 스케줄에 대한 아이템을 예약할 수 있다. \n아이템은 요금을 설정할 수 있다. \n대상은 상품을 설정할 수 있다. \n상품은 1 ~ N 개의 아이템을 설정할 수 있다. \n상품은 할인율을 설정할 수 있다. \n상품에 대한 아이템, 아이템에 대한 상품으로 예약할 수 있다.\n비회원도 예약할 수 있다.\n회원은 상품으로 할인된 요금으로 예약할 수 있다.\n\n1차 예약시스템 ERD및 마이크로 서비스 구성ER 다이어그램 역시 심플하게 다이어그램툴\n\nERD Entity의 색상 구분으로 서비스를 구현한다.MasterService, ItemService, GoodsService, ReservationService, MemberService, CombinationService 6개의 마이크로 서비스로 MSA를 구축한다.\n간단한 MSA 학습이 목적이라서 구현 서비스를 줄였다. MasterService, ReservationService, CompositeService 3개의 마이크로 서비스로 심플하게 구성해보자.\n기술 요구사항 변경1차 목표에서 조금 수정이됬다. Spring webflux functional endpoint로 api를 구성하고, Spring data r2dbc로 리액티브 시스템을 구성한다.\n\nSpring webflux - Functional endpoint\nSpring data r2dbc\nDocker - mysql\n\n처음 환경을 구성할 때 h2 메모리 DB용 서비스를 띄워서 프로젝트만으로 환경을 구성하려고 했다, 그런데 h2 메모리 DB는 외부에서 접속을 하려면 tcp통신을 이용해서 접근을 해야 하는데 r2 dbc는 tcp접속을 지원하지 않았다, 며칠의 삽질 끝에 Mysql DB를 Docker에 띄워서 구성하고 r2 dbc 환경을 구성할 수 있었다. 대충 2주 조금 넘게 Spring webflux - Functional endppoint로 api 서버 개발을 진행 중인데 더디다.. 아직 인터넷으로 정보들을 검색하기가 쉽지 않고 리액티브(Mono, Flux)에 대한 이해도가 낮아서 이런저런 시험도 해보고 이렇게도 되나 저렇게도 되나 이것저것 만져보며 천천히 진행 중이다. 오랜만에 새로운 패러다임으로 공부해보니 답답한 감도 있긴 한데 재미있고 성취감이 있다, 다만 역시 업무 외 시간을 써서 하려다 보니 시간이 많이 부족하긴 하다.\n학습보단 그래도 가정, 개인 생활처음 공부에 대한 목표를 세웠을 때 여러 가지 이유 중 하나가 딸아이한테 아빠가 공부하는 모습을 보여주는 거였다, 어디서 주서들은 건지 내생 각인 지는 기억이 나지 않은데 아빠의 공부하는 모습을 보여주면 딸아이도 따라서 공부하는 습관이 자연스럽게 생기지 않을까 하는 생각이었는데, 아직 딸이 너무 어린 거 같다 딸 옆에서 일단 책을 읽을 수가 없고 (옆에서 읽으면 장난을 걸기 일쑤다.) 평소엔 아빠한테 관심 없어 보이는 딸이 책만 펴서 보면 같이 보자며 관심을 보이는데 같이 책을 보면 다행이지만 그렇지가 않다. 그래서 딸아이를 재운 다음 책을 보던가 토이 프로젝트를 진행하던가 하는데 딸아이가 잠이 들면 빠르면 10시 반 보통 11시를 넘기기 일쑤다. 책이야 한 시간 ~ 한 시간 반 정도 읽고 잠을 청하면 되는데 토이 프로젝트는 한 시간이라는 시간은 좀 짧은 거 같다 특히 새로운 걸 학습하기엔.. 코딩하다 막히고 고민하다 보면 한 시간이 훌쩍 지나가 버린다. 내가 토이 프로젝트 목표를 좀 높게 잡은 것도 이유 중 하나이려나.. 이런저런 핑계로 처음 목표한 거 보단 매우 더디게 진행될 거 같은 생각이다. 그리고 살도 빼야 된다. 돌아오는 10월에 동생 놈 결혼인데 인생 처음 80킬로를 넘어 84킬로 까지 쪘다. 심각하다 운동도 해야 되고 공부도 해야 되고 딸아이와 시간도 보내야 한다, 하루는 24시간이 한정돼있고 포기할 수 있는 건 포기해야 될 거 같은데 아무래도 토이 프로젝트를 좀 더디게 진행하면서 시간을 할애해야 하지 않을까.. 운동은 새벽시간 밖에 할 시간이 없다, 일찍 자고 일찍 일어나 운동하고 남은 시간에 조금 책을 읽는걸로 해야되지않을까 싶다.\n\n10시 취침 ~\n5시45분 기상\n6시 ~ 7시 헬스장에서 운동\n7시 ~ 7시 30분까지 씻고 준비하고\n7시 30분 ~ 8시 20분 까지 독서\n8시 40분 까지 딸아이 깨워서 등원후 출근\n\n10 - 7 탄력근무로 인해 가능한 스케쥴이다.토이프로젝트는 회사에서 시간생길때마다 틈틈히 조금씩 진행해야하지 않을까 싶다.\n-2021.05.17\n","dateCreated":"2021-02-23T00:00:00+09:00","dateModified":"2021-03-25T00:00:00+09:00","datePublished":"2021-02-23T00:00:00+09:00","description":"개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.","headline":"예약시스템 토이 프로젝트 계획","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://kyoung-k.github.io/2021/02/23/template-project-plan/"},"publisher":{"@type":"Organization","name":"KYoung","sameAs":[],"image":"KYoung4.jpg","logo":{"@type":"ImageObject","url":"KYoung4.jpg"}},"url":"https://kyoung-k.github.io/2021/02/23/template-project-plan/","keywords":"학습, Toy Project"}</script>
+    <meta name="description" content="개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="예약시스템 토이 프로젝트 계획">
+<meta property="og:url" content="https://kyoung-k.github.io/2021/02/23/template-project-plan/index.html">
+<meta property="og:site_name" content="Graffiti Book of KYoung">
+<meta property="og:description" content="개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/E4KWwpP.png">
+<meta property="article:published_time" content="2021-02-22T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-24T15:00:00.000Z">
+<meta property="article:author" content="KYoung">
+<meta property="article:tag" content="학습">
+<meta property="article:tag" content="Toy Project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/E4KWwpP.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://kyoung-k.github.io/assets/images/KYoung4.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-mn7tq6td6vqxkerntaoeazmyb51q7gkutpapsnt4pq3chjc0j6n0pbazus2d.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Graffiti Book of KYoung
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">KYoung</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Why so serious?</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            예약시스템 토이 프로젝트 계획
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-02-23T00:00:00+09:00">
+	
+		    2021-02-23
+    	
+    </time>
+    
+    / <time datetime="2021-03-25T00:00:00+09:00">
+        
+		    updated 2021-03-25
+    	
+    </time>
+    
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/%ED%95%99%EC%8A%B5/">학습</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p>
+<a id="more"></a>
+
+<p>MSA 구축 학습을 위해 어떤 내용을 해볼까 하다 예약 시스템으로 결정했다. 먼저 1차적인 학습 목표는 스프링 클라우드를 이용해서 MSA를 구축해보는 것이고, 후에 이 시스템을 쿠버네티스 환경으로 변환하는 작업을 진행해볼까 한다. 먼저 구축을 완료해보고 해당 시스템을 지속 개선, Template Project를 구성하는 게 목표다.</p>
+<h2 id="1차-기술-요구사항"><a href="#1차-기술-요구사항" class="headerlink" title="1차 기술 요구사항"></a>1차 기술 요구사항</h2><ul>
+<li>Spring Boot 기반 RestAPI 서비스</li>
+<li>Spring Cloud 기반 MSA</li>
+<li>Spring Data JPA 기반 데이터 관리</li>
+</ul>
+<p>1차 목표는 심플하게 MSA를 구축하는게 목표고 구축한 시스템을 기반으로 공통 코어 개발 및 공통 기능 개발이다.</p>
+<h2 id="1차-비즈니스-요구사항"><a href="#1차-비즈니스-요구사항" class="headerlink" title="1차 비즈니스 요구사항"></a>1차 비즈니스 요구사항</h2><p>시스템에 대한 비즈니스 요구사항을 심플하게 정리하자. </p>
+<ul>
+<li>다수의 대상의 예약을 관리한다. </li>
+<li>대상은 예약 스케줄을 설정할 수 있다. </li>
+<li>대상은 아이템을 소유하고 스케줄에 대한 아이템을 예약할 수 있다. </li>
+<li>아이템은 요금을 설정할 수 있다. </li>
+<li>대상은 상품을 설정할 수 있다. </li>
+<li>상품은 1 ~ N 개의 아이템을 설정할 수 있다. </li>
+<li>상품은 할인율을 설정할 수 있다. </li>
+<li>상품에 대한 아이템, 아이템에 대한 상품으로 예약할 수 있다.</li>
+<li>비회원도 예약할 수 있다.</li>
+<li>회원은 상품으로 할인된 요금으로 예약할 수 있다.</li>
+</ul>
+<h2 id="1차-예약시스템-ERD및-마이크로-서비스-구성"><a href="#1차-예약시스템-ERD및-마이크로-서비스-구성" class="headerlink" title="1차 예약시스템 ERD및 마이크로 서비스 구성"></a>1차 예약시스템 ERD및 마이크로 서비스 구성</h2><p>ER 다이어그램 역시 심플하게 <a href="https://app.creately.com" target="_blank" rel="noopener">다이어그램툴</a></p>
+<p><img src="https://i.imgur.com/E4KWwpP.png" alt="예약시스템 ERD"></p>
+<p><del>ERD Entity의 색상 구분으로 서비스를 구현한다.</del><br><del>MasterService, ItemService, GoodsService, ReservationService, MemberService, CombinationService 6개의 마이크로 서비스로 MSA를 구축한다.</del></p>
+<p>간단한 MSA 학습이 목적이라서 구현 서비스를 줄였다. MasterService, ReservationService, CompositeService 3개의 마이크로 서비스로 심플하게 구성해보자.</p>
+<h2 id="기술-요구사항-변경"><a href="#기술-요구사항-변경" class="headerlink" title="기술 요구사항 변경"></a>기술 요구사항 변경</h2><p>1차 목표에서 조금 수정이됬다. Spring webflux functional endpoint로 api를 구성하고, Spring data r2dbc로 리액티브 시스템을 구성한다.</p>
+<ul>
+<li>Spring webflux - Functional endpoint</li>
+<li>Spring data r2dbc</li>
+<li>Docker - mysql</li>
+</ul>
+<p>처음 환경을 구성할 때 h2 메모리 DB용 서비스를 띄워서 프로젝트만으로 환경을 구성하려고 했다, 그런데 h2 메모리 DB는 외부에서 접속을 하려면 tcp통신을 이용해서 접근을 해야 하는데 r2 dbc는 tcp접속을 지원하지 않았다, 며칠의 삽질 끝에 Mysql DB를 Docker에 띄워서 구성하고 r2 dbc 환경을 구성할 수 있었다. 대충 2주 조금 넘게 Spring webflux - Functional endppoint로 api 서버 개발을 진행 중인데 더디다.. 아직 인터넷으로 정보들을 검색하기가 쉽지 않고 리액티브(Mono, Flux)에 대한 이해도가 낮아서 이런저런 시험도 해보고 이렇게도 되나 저렇게도 되나 이것저것 만져보며 천천히 진행 중이다. 오랜만에 새로운 패러다임으로 공부해보니 답답한 감도 있긴 한데 재미있고 성취감이 있다, 다만 역시 업무 외 시간을 써서 하려다 보니 시간이 많이 부족하긴 하다.</p>
+<h2 id="학습보단-그래도-가정-개인-생활"><a href="#학습보단-그래도-가정-개인-생활" class="headerlink" title="학습보단 그래도 가정, 개인 생활"></a>학습보단 그래도 가정, 개인 생활</h2><p>처음 공부에 대한 목표를 세웠을 때 여러 가지 이유 중 하나가 딸아이한테 아빠가 공부하는 모습을 보여주는 거였다, 어디서 주서들은 건지 내생 각인 지는 기억이 나지 않은데 아빠의 공부하는 모습을 보여주면 딸아이도 따라서 공부하는 습관이 자연스럽게 생기지 않을까 하는 생각이었는데, 아직 딸이 너무 어린 거 같다 딸 옆에서 일단 책을 읽을 수가 없고 (옆에서 읽으면 장난을 걸기 일쑤다.) 평소엔 아빠한테 관심 없어 보이는 딸이 책만 펴서 보면 같이 보자며 관심을 보이는데 같이 책을 보면 다행이지만 그렇지가 않다. 그래서 딸아이를 재운 다음 책을 보던가 토이 프로젝트를 진행하던가 하는데 딸아이가 잠이 들면 빠르면 10시 반 보통 11시를 넘기기 일쑤다. 책이야 한 시간 ~ 한 시간 반 정도 읽고 잠을 청하면 되는데 토이 프로젝트는 한 시간이라는 시간은 좀 짧은 거 같다 특히 새로운 걸 학습하기엔.. 코딩하다 막히고 고민하다 보면 한 시간이 훌쩍 지나가 버린다. 내가 토이 프로젝트 목표를 좀 높게 잡은 것도 이유 중 하나이려나.. 이런저런 핑계로 처음 목표한 거 보단 매우 더디게 진행될 거 같은 생각이다. 그리고 살도 빼야 된다. 돌아오는 10월에 동생 놈 결혼인데 인생 처음 80킬로를 넘어 84킬로 까지 쪘다. 심각하다 운동도 해야 되고 공부도 해야 되고 딸아이와 시간도 보내야 한다, 하루는 24시간이 한정돼있고 포기할 수 있는 건 포기해야 될 거 같은데 아무래도 토이 프로젝트를 좀 더디게 진행하면서 시간을 할애해야 하지 않을까.. 운동은 새벽시간 밖에 할 시간이 없다, 일찍 자고 일찍 일어나 운동하고 남은 시간에 조금 책을 읽는걸로 해야되지않을까 싶다.</p>
+<ul>
+<li>10시 취침 ~</li>
+<li>5시45분 기상</li>
+<li>6시 ~ 7시 헬스장에서 운동</li>
+<li>7시 ~ 7시 30분까지 씻고 준비하고</li>
+<li>7시 30분 ~ 8시 20분 까지 독서</li>
+<li>8시 40분 까지 딸아이 깨워서 등원후 출근</li>
+</ul>
+<p>10 - 7 탄력근무로 인해 가능한 스케쥴이다.<br>토이프로젝트는 회사에서 시간생길때마다 틈틈히 조금씩 진행해야하지 않을까 싶다.</p>
+<p><strong>-2021.05.17</strong></p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Toy-Project/" rel="tag">Toy Project</a> <a class="tag tag--primary tag--small t-link" href="/tags/%ED%95%99%EC%8A%B5/" rel="tag">학습</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/03/25/2021-book/"
+                    data-tooltip="2021년 읽은 책"
+                    aria-label="PREVIOUS: 2021년 읽은 책"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                    data-tooltip="L-Hotel 프로젝트 복기"
+                    aria-label="NEXT: L-Hotel 프로젝트 복기"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 KYoung. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/03/25/2021-book/"
+                    data-tooltip="2021년 읽은 책"
+                    aria-label="PREVIOUS: 2021년 읽은 책"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                    data-tooltip="L-Hotel 프로젝트 복기"
+                    aria-label="NEXT: L-Hotel 프로젝트 복기"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">KYoung</h4>
+        
+            <div id="about-card-bio"><p>Why so serious?</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Seoul
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"
+                            aria-label=": Hexo 블로그 시작 - Markdown 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Markdown 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 14, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"
+                            aria-label=": Hexo 블로그 시작 - Hexo 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Hexo 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 15, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/28/book/"
+                            aria-label=": 2020년 읽은 책"
+                        >
+                            <h3 class="media-heading">2020년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"
+                            aria-label=": VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                        >
+                            <h3 class="media-heading">VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                            aria-label=": L-Hotel 프로젝트 복기"
+                        >
+                            <h3 class="media-heading">L-Hotel 프로젝트 복기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/02/23/template-project-plan/"
+                            aria-label=": 예약시스템 토이 프로젝트 계획"
+                        >
+                            <h3 class="media-heading">예약시스템 토이 프로젝트 계획</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 23, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/03/25/2021-book/"
+                            aria-label=": 2021년 읽은 책"
+                        >
+                            <h3 class="media-heading">2021년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2021년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover5.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-phkescekrwgvedrwrzacemdneybidvnvowanpddaeobhx7lxljr9ey7agkwj.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('XMH7A2OH53', '2917e43d5747b4fdc5c94e44db663df3');
+      var algoliaIndex = algoliaClient.initIndex('blog');
+    </script>
+
+
+    </body>
+</html>

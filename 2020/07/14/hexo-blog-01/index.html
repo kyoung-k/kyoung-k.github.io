@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Graffiti Book of KYoung">
+    <title>Hexo 블로그 시작 - Markdown 문법 정리 - Graffiti Book of KYoung</title>
+    <meta name="author" content="KYoung">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"KYoung","sameAs":[],"image":"KYoung4.jpg"},"articleBody":"미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.\n\n\nMarkdown 문법 정리Headers123# This is an &lt;h1&gt; tag## This is an &lt;h2&gt; tag###### This is an &lt;h6&gt; tag\n\nHorizontal rules12345* * *********- - ----------------------------------------\n\nEmphasis12345*This text will be italic*_This will also be italic_**This text will be bold**__This will also be bold___You **can** combine them_\nThis text will be italicThis will also be italicThis text will be boldThis will also be boldYou can combine them\nListsUnordered12* Item 1  * Item 2a\n\nItem 1\nItem 2a\n\n\n\nOrdered121. Item 1   1. Item 2a\n\nItem 1\nItem 2a\n\n\n\nImages12![GitHub Logo](/images/logo.png)Format: ![Alt Text](url)\n\nLinks12http://github.com - automatic![GitHub](http://github.com)\n\nBlockquotes123As Kanye West said:&gt; We're living the future so&gt; the present is our past.\n\nWe’re living the future sothe present is our past.\n\nInline code12I think you should use an`&lt;addr&gt;` element here instead.\nI think you should use an&lt;addr&gt; element here instead.\nSyntax highlighting12345function fancyAlert(arg) &#123;  if(arg) &#123;    $.facebox(&#123;div:'#foo'&#125;)  &#125;&#125;\n\nTask Lists1234- [x] @mentions, #refs, [links](), **formatting**, and &lt;del&gt;tags&lt;&#x2F;del&gt; supported- [x] list syntax required (any unordered or ordered list supported)- [x] this is a complete item- [ ] this is an incomplete item\n\n @mentions, #refs, links, formatting, and tags supported\n list syntax required (any unordered or ordered list supported)\n this is a complete item\n this is an incomplete item\n\nTables1234First Header | Second Header------------ | -------------Content from cell 1 | Content from cell 2Content in the first column | Content in the second column\n\n\n\nFirst Header\nSecond Header\n\n\n\nContent from cell 1\nContent from cell 2\n\n\nContent in the first column\nContent in the second column\n\n\n\n블로그 관리 TO-DO List\n 마크다운 문법 정리\n Hexo 관련 명령어, Tag Plugin 정리\n tranquilpeak 테마 관련 정리\n Hexo Seo 설정, 댓글, update 날짜 처리 등 부족한 부분 마무리 하자\n\n","dateCreated":"2020-07-14T00:00:00+09:00","dateModified":"2020-09-03T00:00:00+09:00","datePublished":"2020-07-14T00:00:00+09:00","description":"미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.","headline":"Hexo 블로그 시작 - Markdown 문법 정리","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"},"publisher":{"@type":"Organization","name":"KYoung","sameAs":[],"image":"KYoung4.jpg","logo":{"@type":"ImageObject","url":"KYoung4.jpg"}},"url":"https://kyoung-k.github.io/2020/07/14/hexo-blog-01/","keywords":"hexo"}</script>
+    <meta name="description" content="미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Hexo 블로그 시작 - Markdown 문법 정리">
+<meta property="og:url" content="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/index.html">
+<meta property="og:site_name" content="Graffiti Book of KYoung">
+<meta property="og:description" content="미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-09-02T15:00:00.000Z">
+<meta property="article:author" content="KYoung">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://kyoung-k.github.io/assets/images/KYoung4.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-mn7tq6td6vqxkerntaoeazmyb51q7gkutpapsnt4pq3chjc0j6n0pbazus2d.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Graffiti Book of KYoung
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">KYoung</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Why so serious?</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Hexo 블로그 시작 - Markdown 문법 정리
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-07-14T00:00:00+09:00">
+	
+		    2020-07-14
+    	
+    </time>
+    
+    / <time datetime="2020-09-03T00:00:00+09:00">
+        
+		    updated 2020-09-03
+    	
+    </time>
+    
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/hexo/">hexo</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p>
+<a id="more"></a>
+<hr>
+<h2 id="Markdown-문법-정리"><a href="#Markdown-문법-정리" class="headerlink" title="Markdown 문법 정리"></a>Markdown 문법 정리</h2><h3 id="Headers"><a href="#Headers" class="headerlink" title="Headers"></a>Headers</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># This is an &lt;h1&gt; tag</span></span><br><span class="line"><span class="section">## This is an &lt;h2&gt; tag</span></span><br><span class="line"><span class="section">###### This is an &lt;h6&gt; tag</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Horizontal-rules"><a href="#Horizontal-rules" class="headerlink" title="Horizontal rules"></a>Horizontal rules</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span><span class="emphasis">* *</span></span><br><span class="line"><span class="emphasis">***</span></span><br><span class="line"><span class="strong">*****</span></span><br><span class="line"><span class="bullet">- </span>- -</span><br><span class="line">---------------------------------------</span><br></pre></td></tr></table></figure>
+
+<h3 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">*This text will be italic*</span></span><br><span class="line"><span class="emphasis">_This will also be italic_</span></span><br><span class="line"><span class="strong">**This text will be bold**</span></span><br><span class="line"><span class="strong">__This will also be bold__</span></span><br><span class="line"><span class="emphasis">_You **can** combine them_</span></span><br></pre></td></tr></table></figure>
+<p><em>This text will be italic</em><br><em>This will also be italic</em><br><strong>This text will be bold</strong><br><strong>This will also be bold</strong><br><em>You <strong>can</strong> combine them</em></p>
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><h4 id="Unordered"><a href="#Unordered" class="headerlink" title="Unordered"></a>Unordered</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>Item 1</span><br><span class="line"><span class="bullet">  * </span>Item 2a</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Item 1<ul>
+<li>Item 2a</li>
+</ul>
+</li>
+</ul>
+<h4 id="Ordered"><a href="#Ordered" class="headerlink" title="Ordered"></a>Ordered</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>Item 1</span><br><span class="line"><span class="bullet">   1. </span>Item 2a</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Item 1<ol>
+<li>Item 2a</li>
+</ol>
+</li>
+</ol>
+<h3 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">GitHub Logo</span>](<span class="link">/images/logo.png</span>)</span><br><span class="line">Format: ![<span class="string">Alt Text</span>](<span class="link">url</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://github.com - automatic!</span><br><span class="line">[<span class="string">GitHub</span>](<span class="link">http://github.com</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">As Kanye West said:</span><br><span class="line"><span class="quote">&gt; We're living the future so</span></span><br><span class="line"><span class="quote">&gt; the present is our past.</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>We’re living the future so<br>the present is our past.</p>
+</blockquote>
+<h3 id="Inline-code"><a href="#Inline-code" class="headerlink" title="Inline code"></a>Inline code</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I think you should use an</span><br><span class="line"><span class="code">`&lt;addr&gt;`</span> element here instead.</span><br></pre></td></tr></table></figure>
+<p>I think you should use an<br><code>&lt;addr&gt;</code> element here instead.</p>
+<h3 id="Syntax-highlighting"><a href="#Syntax-highlighting" class="headerlink" title="Syntax highlighting"></a>Syntax highlighting</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fancyAlert</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(arg) &#123;</span><br><span class="line">    $.facebox(&#123;<span class="attr">div</span>:<span class="string">'#foo'</span>&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Task-Lists"><a href="#Task-Lists" class="headerlink" title="Task Lists"></a>Task Lists</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and &lt;del&gt;tags&lt;&#x2F;del&gt; supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item</li>
+</ul>
+<h3 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content from cell 1</td>
+<td>Content from cell 2</td>
+</tr>
+<tr>
+<td>Content in the first column</td>
+<td>Content in the second column</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="블로그-관리-TO-DO-List"><a href="#블로그-관리-TO-DO-List" class="headerlink" title="블로그 관리 TO-DO List"></a>블로그 관리 TO-DO List</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 마크다운 문법 정리</li>
+<li><input disabled="" type="checkbox"> Hexo 관련 명령어, Tag Plugin 정리</li>
+<li><input disabled="" type="checkbox"> tranquilpeak 테마 관련 정리</li>
+<li><input disabled="" type="checkbox"> Hexo Seo 설정, 댓글, update 날짜 처리 등 부족한 부분 마무리 하자</li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/hexo/" rel="tag">hexo</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/15/hexo-blog-02/"
+                    data-tooltip="Hexo 블로그 시작 - Hexo 문법 정리"
+                    aria-label="PREVIOUS: Hexo 블로그 시작 - Hexo 문법 정리"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 KYoung. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2020/07/15/hexo-blog-02/"
+                    data-tooltip="Hexo 블로그 시작 - Hexo 문법 정리"
+                    aria-label="PREVIOUS: Hexo 블로그 시작 - Hexo 문법 정리"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/KYoung4.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">KYoung</h4>
+        
+            <div id="about-card-bio"><p>Why so serious?</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Seoul
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/logo-algolia-nebula-blue-full.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/14/hexo-blog-01/"
+                            aria-label=": Hexo 블로그 시작 - Markdown 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Markdown 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 14, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>미루고 미루던 블로그를 구성했다. 수년 전 티스토리 블로그를 잠시 운영했었는데 그 블로그를 다시 꺼내고 싶진 않았고, 여기저기 뒤져보다가 정적 블로그 플랫폼 Hexo를 선택하게 되었다. 거창하게 운영할 욕심은 현재 없고, 느지막이 마음먹은 공부에 대한 것 정리 및 기록, 이슈 그에 대한 해결 등 기록 위주로 포스팅을 할 계획이다. 기록 없이 개발자로 10년 가까이 일을 하면서 부족한 부분이 많았는데(매번 까먹고) 그 부분을 이제야 채워볼까 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/15/hexo-blog-02/"
+                            aria-label=": Hexo 블로그 시작 - Hexo 문법 정리"
+                        >
+                            <h3 class="media-heading">Hexo 블로그 시작 - Hexo 문법 정리</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 15, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>Hexo 블로그 관리를 뜨문뜨문하다 보니 Hexo 관련 명령어 등을 까먹는다</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/07/28/book/"
+                            aria-label=": 2020년 읽은 책"
+                        >
+                            <h3 class="media-heading">2020년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2020/08/28/vscode-spring-boot-module/"
+                            aria-label=": VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기."
+                        >
+                            <h3 class="media-heading">VSCode에서 Spring Initializr를 사용해 Maven Multi Module 환경설정 하기.</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 28, 2020
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>토이 프로젝트는 VSCode를 사용해서 진행해 보고 싶었다. 인텔리 J를 돈 주고 사용하고 싶진 않았고, (회사에서 사주면 쓰겠지만) 이클립스는 느리다. 그동안 근 10년 가까이 이클립스를 사용해오면서 크게 불만은 없었는데 (중간 2년은 인텔리 J 써봄) IDE에 관심이 없다가 최근 VSCode의 칭찬을 많이 듣게 되면서 관심을 가지게 되었고, 토이 프로젝트에서 써보기로 했다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/01/15/L-Hotel-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B3%B5%EA%B8%B0/"
+                            aria-label=": L-Hotel 프로젝트 복기"
+                        >
+                            <h3 class="media-heading">L-Hotel 프로젝트 복기</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2020년 마지막 프로젝트를 마쳤다. 어려운 프로젝트들이 많았지만 이번엔 좀 특별했다. 프로젝트를 마치고 나오면서 작성한 글의 백업을 잊고 포맷해버려서 애써 작성한 글이 날아갔다. 아쉽지만 그래도 내가 목표한 일이기에 간단하게나마 다시 작성한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/02/23/template-project-plan/"
+                            aria-label=": 예약시스템 토이 프로젝트 계획"
+                        >
+                            <h3 class="media-heading">예약시스템 토이 프로젝트 계획</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 23, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>개인 토이 프로젝트 정리 Post. 개인 토이 프로젝트를 뭘 할까 고민하다가 예약 시스템으로 결정했다. 그에대한 계획을 정리하고자 한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="https://kyoung-k.github.io/2021/03/25/2021-book/"
+                            aria-label=": 2021년 읽은 책"
+                        >
+                            <h3 class="media-heading">2021년 읽은 책</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2021
+                                
+                            </span>
+                        </span>
+                        <!--<div class="media-content hide-xs"><p>2021년 읽은 책의 리뷰나 거창한 정리 글은 아니고, 읽으면서 부족했던 부분, 추가적으로 깊이 있게  알아봐야 할 내용을 정리한다.</p></div>-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover5.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-phkescekrwgvedrwrzacemdneybidvnvowanpddaeobhx7lxljr9ey7agkwj.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+    
+<script src="/assets/js/moment-with-locales.js"></script>
+
+    
+<script src="/assets/js/algoliasearch.js"></script>
+
+    <script>
+      var algoliaClient = algoliasearch('XMH7A2OH53', '2917e43d5747b4fdc5c94e44db663df3');
+      var algoliaIndex = algoliaClient.initIndex('blog');
+    </script>
+
+
+    </body>
+</html>
